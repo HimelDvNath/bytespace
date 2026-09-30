@@ -11,11 +11,13 @@ export function AuthShowcase() {
       <CourseCard
         course={digitalAssetCourse}
         highlighted
+        interactive={false}
         className="absolute top-[89px] left-[25px] w-[373px]"
       />
       <CourseCard
         course={bigDataCourse}
         highlighted
+        interactive={false}
         className="absolute top-0 left-[136px] w-[373px]"
       />
       <HappyStudentsCard variant="lime" className="absolute top-[435px] left-[251px]" />

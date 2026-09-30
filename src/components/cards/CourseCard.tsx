@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { AvatarStack } from "@/components/common/AvatarStack";
 import { SignalIcon, StarIcon, StarOutlineIcon } from "@/components/icons";
 import { cn } from "@/lib/cn";
@@ -7,6 +8,7 @@ import type { Course } from "@/types";
 interface CourseCardProps {
   course: Course;
   highlighted?: boolean;
+  interactive?: boolean;
   headingLevel?: "h3" | "h2";
   className?: string;
 }
@@ -14,6 +16,7 @@ interface CourseCardProps {
 export function CourseCard({
   course,
   highlighted = false,
+  interactive = true,
   headingLevel: Heading = "h3",
   className,
 }: CourseCardProps) {
@@ -22,7 +25,9 @@ export function CourseCard({
   return (
     <article
       className={cn(
-        "flex flex-col rounded-3xl border border-neutral-200 bg-white p-4 pb-[21px]",
+        "relative flex flex-col rounded-3xl border border-neutral-200 bg-white p-4 pb-[21px]",
+        interactive &&
+          "transition-shadow hover:shadow-[0_16px_40px_rgb(36_37_40/0.1)] has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-primary-800",
         className,
       )}
     >
@@ -51,10 +56,29 @@ export function CourseCard({
       <div className="mt-[21px] flex items-start justify-between gap-2.5">
         <div className="min-w-0">
           <Heading className="truncate font-display text-heading-xs font-semibold text-black">
-            {course.title}
+            {interactive ? (
+              <Link
+                href={`/courses/${course.id}`}
+                className="outline-none after:absolute after:inset-0 after:rounded-3xl"
+              >
+                {course.title}
+              </Link>
+            ) : (
+              course.title
+            )}
           </Heading>
           <p className="text-body-xs text-body">
-            by <span className="text-primary-800">{course.creator}</span>
+            by{" "}
+            {interactive ? (
+              <Link
+                href={`/creators/${course.creatorSlug}`}
+                className="relative z-10 rounded-sm text-primary-800 hover:underline"
+              >
+                {course.creator}
+              </Link>
+            ) : (
+              <span className="text-primary-800">{course.creator}</span>
+            )}
           </p>
         </div>
         <p className="flex shrink-0 items-center text-body-l text-body">

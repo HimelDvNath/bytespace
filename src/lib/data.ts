@@ -36,7 +36,7 @@ import testimonialJames from "@/assets/images/avatars/testimonial-james.webp";
 
 export const primaryNav: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Courses", href: "/#courses" },
+  { label: "Courses", href: "/courses" },
   { label: "Creators", href: "/#creators" },
 ];
 
@@ -96,6 +96,7 @@ export const courseCategoryRows: string[][] = [
 
 const sharedCourseStats = {
   creator: "purepearl studio",
+  creatorSlug: "purepearl-studio",
   lessons: 17,
   duration: "2 hours 16 mins",
   comments: 59,
@@ -205,7 +206,7 @@ export const footerColumns: FooterColumn[] = [
   {
     title: "Browse",
     links: [
-      { label: "Featured Courses", href: "/#courses" },
+      { label: "Featured Courses", href: "/courses" },
       { label: "Featured Categories", href: "/#categories" },
       { label: "Business", href: "/#categories" },
       { label: "IT", href: "/#categories" },

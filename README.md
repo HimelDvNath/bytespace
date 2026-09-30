@@ -19,6 +19,9 @@ https://www.figma.com/design/26TBgRjmpuxudcErJsHUfy/ByteSpace-New-Check-website
 - Responsive landing page (mobile, tablet, desktop), matched to the Figma frame at 1440px
 - Mobile navigation (accessible disclosure menu, closes on Escape)
 - Course explorer: category filters and hero search, synced to the URL (`?category=`, `?q=`)
+- Course search page (`/courses`) with search scope (courses/creators), Filter, Level, Category and sort menus, category tabs and pagination, all synced to the URL
+- Course details (`/courses/[slug]`) with About, Lessons and Reviews tabs as nested routes, a shared enroll sidebar, share link and review rating filter
+- Creator profile (`/creators/[slug]`) with follow toggle and a filterable course grid
 - Sign In and Sign Up pages with validation, loading and success states
 - Custom 404 page from the Figma design
 - Reusable, data-driven components (`src/lib/data.ts`)

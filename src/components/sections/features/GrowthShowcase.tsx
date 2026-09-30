@@ -16,6 +16,7 @@ export function GrowthShowcase() {
         <CourseCard
           course={courses[0]}
           highlighted
+          interactive={false}
           className="absolute top-0 left-0 w-[373px]"
         />
         <Image
