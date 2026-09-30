@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ByteSpace New
+
+A responsive recreation of the ByteSpace New website based on the provided Figma design.
+
+## Design
+
+https://www.figma.com/design/26TBgRjmpuxudcErJsHUfy/ByteSpace-New-Check-website
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- React 19
+- TypeScript
+- Tailwind CSS 4
+- ESLint
+
+## Features
+
+- Responsive landing page (mobile, tablet, desktop), matched to the Figma frame at 1440px
+- Mobile navigation (accessible disclosure menu, closes on Escape)
+- Course explorer: category filters and hero search, synced to the URL (`?category=`, `?q=`)
+- Sign In and Sign Up pages with validation, loading and success states
+- Custom 404 page from the Figma design
+- Reusable, data-driven components (`src/lib/data.ts`)
+- Accessible UI: semantic landmarks, labelled forms, visible focus states
+- SEO metadata, Open Graph image and favicon
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```text
+src/
+├── app/            # routes: home, (auth)/login, (auth)/register, not-found, metadata files
+├── assets/         # self-hosted fonts and optimised images exported from Figma
+├── components/
+│   ├── auth/       # auth shell, forms, text field
+│   ├── buttons/    # Button / ButtonLink
+│   ├── cards/      # course, stat, learning-path and testimonial cards
+│   ├── common/     # container, logo, ornaments, glow background, avatar stack
+│   ├── hero/       # hero section and search form
+│   ├── icons/      # SVG icons exported from Figma
+│   ├── layout/     # footer and newsletter form
+│   ├── navbar/     # navbar and mobile menu
+│   └── sections/   # landing page sections
+├── lib/            # content data, filters, validation, fonts, site config
+└── types/          # shared TypeScript types
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Notes
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Colors, typography and spacing tokens come from the Figma style guide (`src/app/globals.css`).
+- There is no backend: form submissions are simulated on the client.
+- Optional: set `NEXT_PUBLIC_SITE_URL` (see `.env.example`) to produce absolute Open Graph URLs.
