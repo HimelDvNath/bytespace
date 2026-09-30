@@ -4,11 +4,20 @@ import { CourseCard } from "@/components/cards/CourseCard";
 import { cn } from "@/lib/cn";
 import type { Course } from "@/types";
 
+const CATEGORY_LIST_ID = "course-categories";
+const COLLAPSED_CATEGORY_COUNT = 8;
+
+function categoryIndex(rows: string[][], category: string) {
+  return rows.flat().indexOf(category);
+}
+
 interface CourseBrowserProps {
   categoryRows: string[][];
   activeCategory: string;
   query: string;
   courses: Course[];
+  showAllCategories?: boolean;
+  onToggleCategories?: () => void;
   onSelectCategory?: (category: string) => void;
   onClearSearch?: () => void;
   onReset?: () => void;
@@ -19,6 +28,8 @@ export function CourseBrowser({
   activeCategory,
   query,
   courses,
+  showAllCategories = false,
+  onToggleCategories,
   onSelectCategory,
   onClearSearch,
   onReset,
@@ -26,9 +37,10 @@ export function CourseBrowser({
   return (
     <>
       <div
+        id={CATEGORY_LIST_ID}
         role="group"
         aria-label="Filter courses by category"
-        className="-mx-4 mt-10.5 flex gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] sm:-mx-6 sm:px-6 md:mx-0 md:flex-wrap md:justify-center md:gap-4 md:overflow-visible md:px-0 md:pb-0 xl:gap-y-5.25 [&::-webkit-scrollbar]:hidden"
+        className="mt-8 flex flex-wrap justify-center gap-2 sm:gap-3 md:mt-10.5 md:gap-4 xl:gap-y-5.25"
       >
         {categoryRows.map((row, rowIndex) => (
           <div
@@ -37,6 +49,8 @@ export function CourseBrowser({
           >
             {row.map((category) => {
               const isActive = category === activeCategory;
+              const isCollapsedExtra =
+                !showAllCategories && !isActive && categoryIndex(categoryRows, category) >= COLLAPSED_CATEGORY_COUNT;
               return (
                 <button
                   key={category}
@@ -44,10 +58,11 @@ export function CourseBrowser({
                   aria-pressed={isActive}
                   onClick={onSelectCategory && (() => onSelectCategory(category))}
                   className={cn(
-                    "shrink-0 rounded-3xl px-4 py-3 text-label-m font-medium whitespace-nowrap transition-colors",
+                    "rounded-3xl px-3.5 py-2.5 text-label-s font-medium whitespace-nowrap transition-colors md:px-4 md:py-3 md:text-label-m",
                     isActive
                       ? "bg-secondary-400 text-neutral-950"
                       : "bg-neutral-50 text-neutral-700 hover:bg-neutral-100 hover:text-neutral-950",
+                    isCollapsedExtra && "max-xl:hidden",
                   )}
                 >
                   {category}
@@ -57,13 +72,22 @@ export function CourseBrowser({
             {rowIndex === categoryRows.length - 1 && (
               <Link
                 href="#categories"
-                className="shrink-0 self-center rounded-sm px-1 text-label-m font-medium whitespace-nowrap text-primary-800 hover:underline"
+                className="hidden shrink-0 self-center rounded-sm px-1 text-label-m font-medium whitespace-nowrap text-primary-800 hover:underline xl:inline"
               >
                 + More
               </Link>
             )}
           </div>
         ))}
+        <button
+          type="button"
+          aria-expanded={showAllCategories}
+          aria-controls={CATEGORY_LIST_ID}
+          onClick={onToggleCategories}
+          className="self-center rounded-sm px-2 py-2 text-label-s font-medium whitespace-nowrap text-primary-800 hover:underline md:text-label-m xl:hidden"
+        >
+          {showAllCategories ? "Show less" : "+ More"}
+        </button>
       </div>
 
       {query && (

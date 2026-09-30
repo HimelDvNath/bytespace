@@ -18,7 +18,7 @@ export function CoursesSection() {
           id="courses-heading"
           title={
             <>
-              Discover Your Passion, <br className="hidden sm:inline" />
+              Discover Your Passion, <br />
               Build Your Skills
             </>
           }

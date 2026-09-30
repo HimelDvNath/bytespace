@@ -1,6 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { CATEGORY_PARAM, filterCourses, SEARCH_PARAM } from "@/lib/course-filters";
 import type { Course } from "@/types";
 import { CourseBrowser } from "./CourseBrowser";
@@ -13,6 +14,7 @@ interface CourseExplorerProps {
 
 export function CourseExplorer({ courses, categoryRows, featuredCategory }: CourseExplorerProps) {
   const searchParams = useSearchParams();
+  const [showAllCategories, setShowAllCategories] = useState(false);
   const query = (searchParams.get(SEARCH_PARAM) ?? "").trim();
   const requestedCategory = searchParams.get(CATEGORY_PARAM);
   const activeCategory =
@@ -46,6 +48,8 @@ export function CourseExplorer({ courses, categoryRows, featuredCategory }: Cour
       activeCategory={activeCategory}
       query={query}
       courses={visibleCourses}
+      showAllCategories={showAllCategories}
+      onToggleCategories={() => setShowAllCategories((shown) => !shown)}
       onSelectCategory={(category) =>
         updateParams({ [CATEGORY_PARAM]: category === featuredCategory ? null : category })
       }
